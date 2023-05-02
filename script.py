@@ -15,17 +15,20 @@ vk = session.get_api()
 def get_user_friends(user_id):
     friends = session.method('friends.get', {'user_id': user_id})
     # count = 0
+    friend_groups = []
 
-    # friend_list = []
-    for friend in friends['items']:
-        user = session.method('users.get', {'user_ids': friend})
-        groups = session.method('groups.get', {'user_id': friend})
-        time.sleep(0.5)
-        if user_id == ['deactivated'] or ['is_closed']:
-            continue
-        print(f"{user[0]['first_name']} {user[0]['last_name']}")
-        print(f"{groups['items']}")
-        # friend_list.append(friend)
+    try:
+        for friend in friends['items']:
+            user = session.method('users.get', {'user_ids': friend})
+            groups = session.method('groups.get', {'user_id': friend})
+            time.sleep(0.5)
+
+            print(f"{user[0]['first_name']} {user[0]['last_name']}")
+            print(f"{groups['items']}")
+            friend_groups.extend(groups['items'])
+    except BaseException:
+        print("-----------")
+        print(friend_groups)
 
     # session.method('groups.get', {})
     #
