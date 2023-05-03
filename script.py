@@ -14,32 +14,19 @@ vk = session.get_api()
 
 def get_user_friends(user_id):
     friends = session.method('friends.get', {'user_id': user_id})
-    # count = 0
     friend_groups = []
 
-    try:
-        for friend in friends['items']:
-            user = session.method('users.get', {'user_ids': friend})
-            groups = session.method('groups.get', {'user_id': friend})
-            time.sleep(0.5)
-
-            print(f"{user[0]['first_name']} {user[0]['last_name']}")
-            print(f"{groups['items']}")
-            friend_groups.extend(groups['items'])
-    except BaseException:
-        print("-----------")
-        print(friend_groups)
-
-    # session.method('groups.get', {})
-    #
-    # group_list = []
-    # for groups in friend_list:
-    #     session.method('groups.get', {'groups_name': groups})
-    #     time.sleep(0.5)
-    #     group_list.append(groups)
-    #     count += 1
-    #     print(count)
-    # print(group_list)
+    for friend in friends['items']:
+        user = session.method('users.get', {'user_ids': friend})
+        group = session.method('groups.get', {'user_id': friend})
+        time.sleep(0.5)
+        print(f"{user[0]['first_name']} {user[0]['last_name']}")
+        print(f"{group['items']}")
+        friend_groups.extend(group['items'])
+    print('-' * 70)
+    print(friend_groups)
+    result = len(friend_groups)
+    print(f"{'count groups: '} + {result}")
 
 
 get_user_friends(int(input('enter id user: ')))
