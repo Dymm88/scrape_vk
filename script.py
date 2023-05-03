@@ -27,3 +27,4 @@ def get_user_friends(user_id):
     result = len(friend_groups)
     print('#' * 100)
     print(f"{'count groups: '}{result}")
+    return
