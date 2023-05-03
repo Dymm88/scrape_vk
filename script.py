@@ -19,14 +19,12 @@ def get_user_friends(user_id):
     for friend in friends['items']:
         user = session.method('users.get', {'user_ids': friend})
         group = session.method('groups.get', {'user_id': friend})
-        time.sleep(0.5)
+        time.sleep(0.4)
         print(f"{user[0]['first_name']} {user[0]['last_name']}")
         print(f"{group['items']}")
         friend_groups.extend(group['items'])
-    print('-' * 70)
+    print('#' * 77)
     print(friend_groups)
     result = len(friend_groups)
+    print('#' * 77)
     print(f"{'count groups: '} + {result}")
-
-
-get_user_friends(int(input('enter id user: ')))
