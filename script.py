@@ -19,9 +19,11 @@ def get_user_friends(user_id):
     friend_groups = []
     for friend in friends['items']:
         try:
-            session.method('users.get', {'user_ids': friend})
+            user = session.method('users.get', {'user_ids': friend})
             group = session.method('groups.get', {'user_id': friend})
             time.sleep(0.4)
+            print(f"{user[0]['first_name']} {user[0]['last_name']}")
+            print(f"{'count of groups: '}{group['count']}")
             friend_groups.extend(group['items'])
         except vk_api.exceptions.ApiError:
             pass
