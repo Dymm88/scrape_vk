@@ -13,7 +13,7 @@ session = vk_api.VkApi(token=TOKEN)
 vk = session.get_api()
 
 
-def get_user_friends(user_id):
+def get_user_friends(user_id, quantity):
     friends = session.method('friends.get', {'user_id': user_id})
 
     friend_groups = []
@@ -23,10 +23,14 @@ def get_user_friends(user_id):
             group = session.method('groups.get', {'user_id': friend})
             time.sleep(0.4)
             print(f"{user[0]['first_name']} {user[0]['last_name']}")
-            print(f"{'count of groups: '}{group['count']}")
+            print(f"{'count of groups:'} {group['count']}")
+            print('_' * 50)
             friend_groups.extend(group['items'])
         except vk_api.exceptions.ApiError:
             pass
+    total_groups = len(friend_groups)
+    print(f"{'TOTAL:'} {total_groups}")
+    print(' ')
 
     print('#' * 50)
     print('СПИСОК ТОП-10 ГРУПП')
@@ -42,5 +46,5 @@ def get_user_friends(user_id):
         group_name = list_id[0]
         count += 1
         print(f"{count}{'.'} {group_name['name']}")
-        if count == 10:
+        if count == quantity:
             break
