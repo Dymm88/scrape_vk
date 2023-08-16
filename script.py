@@ -33,7 +33,7 @@ def get_user_friends(user_id, quantity):
     print(' ')
 
     print('#' * 50)
-    print('СПИСОК ТОП-10 ГРУПП')
+    print(f'СПИСОК ТОП-{quantity} ГРУПП')
     print('#' * 50)
 
     df = pd.Series(friend_groups)
