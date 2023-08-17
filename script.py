@@ -1,10 +1,8 @@
-import time
 import os
+import time
+import pandas as pd
 import vk_api
 from dotenv import load_dotenv, find_dotenv
-
-import pandas as pd
-
 
 load_dotenv(find_dotenv())
 
