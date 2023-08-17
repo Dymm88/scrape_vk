@@ -1,7 +1,8 @@
 import time
+import os
 import vk_api
 from dotenv import load_dotenv, find_dotenv
-import os
+
 import pandas as pd
 
 
@@ -13,7 +14,7 @@ session = vk_api.VkApi(token=TOKEN)
 vk = session.get_api()
 
 
-def get_user_friends(user_id, quantity):
+def get_user_friends(user_id: int, quantity: int):
     friends = session.method('friends.get', {'user_id': user_id})
 
     friend_groups = []
@@ -40,11 +41,17 @@ def get_user_friends(user_id, quantity):
     result = df.value_counts(sort=True)
     to_list = list(result.index)
 
+    end_list = []
     count = 0
     for name in to_list:
         list_id = session.method('groups.getById', {'group_id': name})
         group_name = list_id[0]
         count += 1
+        end_list.append(group_name['name'])
         print(f"{count}{'.'} {group_name['name']}")
         if count == quantity:
             break
+
+    with open(f'{user_id}.txt', 'w', encoding='utf8') as file:
+        for i in end_list:
+            file.write(i + '\n')
