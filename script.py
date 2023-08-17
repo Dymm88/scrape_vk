@@ -31,9 +31,9 @@ def get_user_friends(user_id: int, quantity: int):
     print(f"{'TOTAL:'} {total_groups}")
     print(' ')
 
-    print('#' * 50)
+    print(' ')
     print(f'СПИСОК ТОП-{quantity} ГРУПП')
-    print('#' * 50)
+    print(' ')
 
     df = pd.Series(friend_groups)
     result = df.value_counts(sort=True)
